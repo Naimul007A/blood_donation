@@ -1,0 +1,24 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+/**********************************
+******Main css*******
+*********************************** */
+@import "style.css";
+/**********************************
+******common css*******
+*********************************** */
+:root {
+    --main_color: #800000;
+}
+.btn1 {
+    background: var(--main_color);
+    color: #fff;
+    font-weight: 600;
+    margin: 0 5px;
+    border: 2px solid transparent;
+}
+.btn1:hover {
+    background: #fff;
+    color: var(--main_color);
+    border: 2px solid var(--main_color);
+    transition: all 0.5s;
+}
