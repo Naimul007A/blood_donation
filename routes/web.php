@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\DonorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,12 @@ Route::prefix( "user" )->name( "user." )->middleware( "guest" )->controller( Use
     Route::post( "/login", 'loginProccess' )->name( 'loginProccess' );
     Route::get( "/registration", 'registration' )->name( "registration" );
     Route::Post( "/registration", 'registrationProccess' )->name( "registrationProccess" );
+
+} );
+
+Route::get( "/donor/list", [DonorController::class, 'donorList'] )->name( "donorList" );
+
+Route::prefix( "user" )->name( "user." )->middleware( "auth" )->controller( UserController::class )->group( function () {
+    Route::get( "/logout", 'logout' )->name( 'logout' );
+
 } );

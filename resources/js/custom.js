@@ -1,5 +1,3 @@
-const { Input } = require("postcss");
-
 $(Document).ready(function () {
     $.ajaxSetup({
         headers: {
@@ -22,11 +20,20 @@ $(Document).ready(function () {
             const data = $(this)[0];
             const formdata = new FormData(data);
             if (role == 0) {
-                var url = "user url";
+                var url = "/user/login";
             } else {
-                var url = "donar url";
+                var url = "/donor/login";
             }
-            console.log(url);
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    window.location.href = "/";
+                },
+            });
         }
     });
 });

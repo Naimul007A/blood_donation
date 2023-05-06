@@ -8,15 +8,16 @@
             <div class="card">
                 <div class="card-body">
                     <div class="p-4">
-                        <form action="">
+                        <form action="{{ route('donorList') }}" method="GET">
                             <div class="row">
                                 <div class="col-12 col-md-5 py-2">
                                     <div class="form-group">
                                         <label for="" class="form-label fw-bold">City</label>
                                         <select name="city" id="" class="form-select">
                                             <option value="0" selected>Select City</option>
-                                            <option value="1">Dhaka</option>
-                                            <option value="2">Bogura</option>
+                                            @foreach ($cities as $city)
+                                                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -25,6 +26,9 @@
                                         <label for="" class="form-label fw-bold">Blood Group</label>
                                         <select name="group" id="" class="form-select">
                                             <option value="0" selected>Select Blood Group</option>
+                                            @foreach ($groups as $group)
+                                                <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
