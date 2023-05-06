@@ -9,7 +9,7 @@
                 <h3 class="text-center card-title">User Login</h3>
             </div>
             <div class="card-body py-3">
-                <form action="" id="User-login" method="post">
+                <form id="User-login" method="post">
 
                     <div class="py-2">
                         <div class="form-group p-2">
