@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::controller( HomeController::class )->group( function () {
     Route::get( "/", 'home' )->name( 'home' );
 } );
-Route::prefix( "user" )->middleware( "guest" )->controller( UserController::class )->group( function () {
-    Route::get( "/login", 'login' )->name( 'user.login' );
-    Route::post( "/login", 'loginProccess' )->name( 'user.loginProccess' );
-    Route::get( "/registration", 'registration' )->name( "user.registration" );
-    Route::Post( "/registration", 'registrationProccess' )->name( "user.registrationProccess" );
+Route::prefix( "user" )->name( "user." )->middleware( "guest" )->controller( UserController::class )->group( function () {
+    Route::get( "/login", 'login' )->name( 'login' );
+    Route::post( "/login", 'loginProccess' )->name( 'loginProccess' );
+    Route::get( "/registration", 'registration' )->name( "registration" );
+    Route::Post( "/registration", 'registrationProccess' )->name( "registrationProccess" );
 } );
