@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->string( 'email', 150 )->unique();
             $table->timestamp( 'email_verified_at' )->nullable();
             $table->string( 'password', 150 );
-            $table->unsignedInteger( 'blood_group' )->nullable();
-            $table->unsignedInteger( 'city' );
+            $table->unsignedInteger( 'group_id' )->nullable();
+            $table->unsignedInteger( 'city_id' );
             $table->string( 'state', 120 )->nullable();
             $table->string( 'address' )->nullable();
             $table->string( 'image', 150 )->nullable();

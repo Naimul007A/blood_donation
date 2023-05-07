@@ -28,6 +28,13 @@ a {
     width: 300px;
     border-radius: 10px;
 }
+#message {
+    display: block;
+    position: fixed;
+    right: 10px;
+    top: 60px;
+    z-index: 2;
+}
 
 /**********************************
 ******Main css*******

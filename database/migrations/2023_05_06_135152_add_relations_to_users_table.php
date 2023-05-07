@@ -10,8 +10,9 @@ return new class extends Migration {
      */
     public function up(): void{
         Schema::table( 'users', function ( Blueprint $table ) {
-            $table->foreign( 'city' )->references( 'id' )->on( 'cities' )->onDelete( 'cascade' );
-            $table->foreign( 'blood_group' )->references( 'id' )->on( 'groups' )->onDelete( 'cascade' );
+            $table->string( 'last_donate', 120 );
+            $table->foreign( 'city_id' )->references( 'id' )->on( 'cities' )->onDelete( 'cascade' );
+            $table->foreign( 'group_id' )->references( 'id' )->on( 'groups' )->onDelete( 'cascade' );
         } );
     }
 

@@ -15,8 +15,6 @@
                         <div class="form-group p-2">
                             <input type="radio" name="role" value="0" checked>
                             <label class="fw-bold form-label" for="">User</label>
-                            <input type="radio" name="role" value="1">
-                            <label class="fw-bold form-label" for="">Donor</label>
                         </div>
                         <div>
                             <div class="py-2">
@@ -26,7 +24,6 @@
                             <div class="py-3">
                                 <label for="" class="form-label fw-bold">User Password</label>
                                 <input type="password" name="password" placeholder="User Password" class="form-control">
-
                             </div>
                             <div class="py-3">
                                 <input type="submit" class="btn btn1" value="Log in">

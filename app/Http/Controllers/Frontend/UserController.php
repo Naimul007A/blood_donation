@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
+use App\Models\Group;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Mockery\Expectation;
 
 class UserController extends Controller {
     public function login() {
@@ -15,11 +20,81 @@ class UserController extends Controller {
         if ( Auth::attempt( $credentials ) ) {
             return true;
         } else {
-            return "password not match";
+            return false;
         }
     }
     public function registration() {
         return view( "registration" );
+    }
+    public function profile() {
+        $user_id = Auth::user()->id;
+        $user    = User::where( 'id', $user_id )->with( 'City', 'Group' )->first();
+        return view( "userProfile", compact( 'user' ) );
+    }
+    public function edit() {
+        $cities = City::orderBy( "name", "asc" )->get();
+        $groups = Group::all();
+        return view( "userProfileEdit", compact( 'cities', 'groups' ) );
+
+    }
+    public function update( Request $request ) {
+
+        $validetor = Validator::make( $request->all(), [
+            'name'  => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|numeric',
+        ] );
+        if ( $validetor->fails() ) {
+            return redirect()->back()->withErrors( $validetor )->withInput();
+        }
+        $file = $request->profile;
+        if ( $file ) {
+            $imagename = "user-profile-" . rand( 1000, 10000 ) . "." . $file->getClientOriginalExtension();
+            //Move Uploaded File
+            $destinationPath = 'uploads';
+            $file->move( $destinationPath, $imagename );
+        } else {
+            $imagename = $request->old_profile;
+        }
+        if ( $request->donor ) {
+            $formdata = [
+                'name'     => trim( $request->name ),
+                'email'    => $request->email,
+                'phone'    => $request->phone,
+                'group_id' => $request->group,
+                'city_id'  => $request->city,
+                'role'     => 2,
+            ];
+        } elseif ( Auth::user()->role == 2 ) {
+            $formdata = [
+                'name'        => trim( $request->name ),
+                'email'       => $request->email,
+                'phone'       => $request->phone,
+                'group_id'    => $request->group,
+                'city_id'     => $request->city,
+                'state'       => $request->state,
+                'address'     => $request->address,
+                'image'       => $imagename,
+                'last_donate' => $request->date,
+            ];
+        } else {
+            $formdata = [
+                'name'     => trim( $request->name ),
+                'email'    => $request->email,
+                'phone'    => $request->phone,
+                'group_id' => $request->group,
+                'city_id'  => $request->city,
+            ];
+        }
+        try {
+            User::find( Auth::user()->id )->update( $formdata );
+            session()->flash( 'message', "Data update Successfully" );
+            session()->flash( 'type', 'success' );
+            return redirect()->back();
+        } catch ( Expectation $e ) {
+            return redirect()->back();
+        }
+
     }
     public function logout() {
         Auth::logout();

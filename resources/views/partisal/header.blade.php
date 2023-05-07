@@ -21,8 +21,7 @@
                                     Hello , {{ Auth::user()->name }}
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item"
-                                            href="{{ Auth::user()->role == 1 ? route('home') : route('user.login') }}">Profile</a>
+                                    <li><a class="dropdown-item" href="{{ route('user.profile') }}/">Profile</a>
                                     </li>
                                     <li><a class="dropdown-item" href="#">Change Password</a></li>
                                     <li><a class="dropdown-item" href="{{ route('user.logout') }}">Logout</a></li>

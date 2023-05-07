@@ -12,6 +12,7 @@
 
 <body>
     @include('partisal.header')
+    <div id="message"> </div>
     <section id="main-section">
         <div class="container">
             @yield('main')

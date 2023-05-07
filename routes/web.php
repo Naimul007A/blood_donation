@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\DonorController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserController;
-use App\Http\Controllers\Frontend\DonorController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +28,14 @@ Route::prefix( "user" )->name( "user." )->middleware( "guest" )->controller( Use
 } );
 
 Route::get( "/donor/list", [DonorController::class, 'donorList'] )->name( "donorList" );
+Route::middleware( "auth" )->controller( DonorController::class )->group( function () {
+    Route::get( "/donor/profile/{id}", 'donor' )->name( "profile.donor" );
+} );
 
 Route::prefix( "user" )->name( "user." )->middleware( "auth" )->controller( UserController::class )->group( function () {
+    Route::get( "/profile/edit", 'edit' )->name( 'edit' );
+    Route::post( "/profile/edit", 'update' )->name( 'update' );
+    Route::get( "/profile", 'profile' )->name( 'profile' );
     Route::get( "/logout", 'logout' )->name( 'logout' );
 
 } );

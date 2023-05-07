@@ -8,8 +8,11 @@ use Illuminate\Http\Request;
 
 class DonorController extends Controller {
     public function donorList( Request $request ) {
-
-        $donors = User::where( 'city', $request->city )->where( 'blood_group', $request->group )->get();
+        $donors = User::where( 'city_id', $request->city )->where( 'group_id', $request->group )->with( 'City', 'Group' )->get();
         return view( "donorList", compact( "donors" ) );
+    }
+    public function donor( $id ) {
+        $donor = User::where( "id", $id )->first();
+        return view( "donor", compact( "donor" ) );
     }
 }
