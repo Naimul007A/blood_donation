@@ -39,3 +39,6 @@ Route::prefix( "user" )->name( "user." )->middleware( "auth" )->controller( User
     Route::get( "/logout", 'logout' )->name( 'logout' );
 
 } );
+Route::prefix( "admin" )->name( "admin." )->middleware( "auth" )->group( function () {
+
+} );
