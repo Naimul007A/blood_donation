@@ -24,7 +24,66 @@ class UserController extends Controller {
         }
     }
     public function registration() {
-        return view( "registration" );
+        $cities = City::orderBy( "name", "asc" )->get();
+        $groups = Group::all();
+        return view( "registration", compact( 'cities', 'groups' ) );
+    }
+    public function registrationProccess( Request $request ) {
+
+        $validetor = Validator::make( $request->all(), [
+            'name'  => 'required',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|numeric',
+        ] );
+        if ( $validetor->fails() ) {
+            return redirect()->back()->withErrors( $validetor )->withInput();
+        }
+        $file = $request->profile;
+        if ( $file ) {
+            $imagename = "user-profile-" . rand( 1000, 10000 ) . "." . $file->getClientOriginalExtension();
+            //Move Uploaded File
+            $destinationPath = 'uploads';
+            $file->move( $destinationPath, $imagename );
+        } else {
+            $imagename = "";
+        }
+        if ( $request->donor ) {
+            $formdata = [
+                'name'     => trim( $request->name ),
+                'email'    => $request->email,
+                'phone'    => $request->phone,
+                'password' => bcrypt( $request->password ),
+                'group_id' => $request->group,
+                'city_id'  => $request->city,
+                'image'    => $imagename,
+                'role'     => 2,
+            ];
+        } else {
+            $formdata = [
+                'name'     => trim( $request->name ),
+                'email'    => $request->email,
+                'phone'    => $request->phone,
+                'group_id' => $request->group,
+                'city_id'  => $request->city,
+                'password' => bcrypt( $request->password ),
+                'image'    => $imagename,
+            ];
+        }
+        try {
+            $user = User::create( $formdata );
+            session()->flash( 'message', "account create successfully" );
+            session()->flash( 'type', 'success' );
+
+            $credentials = [
+                'email'    => $user->email,
+                'password' => $request->password,
+            ];
+
+            Auth::attempt( $credentials );
+            return redirect()->route( "home" );
+        } catch ( Expectation $e ) {
+            return redirect()->back()->withInput();
+        }
     }
     public function profile() {
         $user_id = Auth::user()->id;

@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 
 class DonorController extends Controller {
     public function donorList( Request $request ) {
-        $donors = User::where( 'city_id', $request->city )->where( 'group_id', $request->group )->with( 'City', 'Group' )->get();
+        $donors = User::where( 'city_id', $request->city )
+            ->where( 'group_id', $request->group )
+            ->where( 'role', 2 )->with( 'City', 'Group' )->get();
         return view( "donorList", compact( "donors" ) );
     }
     public function donor( $id ) {
