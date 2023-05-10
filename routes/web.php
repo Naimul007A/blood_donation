@@ -43,12 +43,12 @@ Route::prefix( "user" )->name( "user." )
 
 } );
 Route::prefix( "admin" )->name( "admin." )->group( function () {
-    Route::middleware( 'guest' )
+    Route::middleware( 'admin_guest' )
         ->controller( App\Http\Controllers\Backend\HomeController::class )->group( function () {
         Route::get( "/", 'login' )->name( 'login' );
         Route::post( "/", 'loginProccess' )->name( "loginProccess" );
     } );
-    Route::middleware( "auth", "isadmin" )
+    Route::middleware( "isadmin" )
         ->controller( App\Http\Controllers\Backend\HomeController::class )->group( function () {
         Route::get( "/dashboard", "dashboard" )->name( "dashboard" );
         Route::get( "/logout", "logout" )->name( "logout" );

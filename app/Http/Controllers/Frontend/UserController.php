@@ -18,7 +18,13 @@ class UserController extends Controller {
     public function loginProccess( Request $request ) {
         $credentials = $request->except( 'role' );
         if ( Auth::attempt( $credentials ) ) {
-            return true;
+            if ( Auth::user()->role == 1 ) {
+                Auth::logout();
+                return false;
+            } else {
+                return true;
+            }
+
         } else {
             return false;
         }
