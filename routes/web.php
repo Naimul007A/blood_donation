@@ -19,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::controller( HomeController::class )->group( function () {
     Route::get( "/", 'home' )->name( 'home' );
 } );
-Route::prefix( "user" )->name( "user." )->middleware( "guest" )->controller( UserController::class )->group( function () {
+Route::prefix( "user" )->name( "user." )
+    ->middleware( "guest" )
+    ->controller( UserController::class )->group( function () {
     Route::get( "/login", 'login' )->name( 'login' );
     Route::post( "/login", 'loginProccess' )->name( 'loginProccess' );
     Route::get( "/registration", 'registration' )->name( "registration" );
@@ -32,13 +34,23 @@ Route::middleware( "auth" )->controller( DonorController::class )->group( functi
     Route::get( "/donor/profile/{id}", 'donor' )->name( "profile.donor" );
 } );
 
-Route::prefix( "user" )->name( "user." )->middleware( "auth" )->controller( UserController::class )->group( function () {
+Route::prefix( "user" )->name( "user." )
+    ->middleware( "auth" )->controller( UserController::class )->group( function () {
     Route::get( "/profile/edit", 'edit' )->name( 'edit' );
     Route::post( "/profile/edit", 'update' )->name( 'update' );
     Route::get( "/profile", 'profile' )->name( 'profile' );
     Route::get( "/logout", 'logout' )->name( 'logout' );
 
 } );
-Route::prefix( "admin" )->name( "admin." )->middleware( "auth" )->group( function () {
-
+Route::prefix( "admin" )->name( "admin." )->group( function () {
+    Route::middleware( 'guest' )
+        ->controller( App\Http\Controllers\Backend\HomeController::class )->group( function () {
+        Route::get( "/", 'login' )->name( 'login' );
+        Route::post( "/", 'loginProccess' )->name( "loginProccess" );
+    } );
+    Route::middleware( "auth", "isadmin" )
+        ->controller( App\Http\Controllers\Backend\HomeController::class )->group( function () {
+        Route::get( "/dashboard", "dashboard" )->name( "dashboard" );
+        Route::get( "/logout", "logout" )->name( "logout" );
+    } );
 } );

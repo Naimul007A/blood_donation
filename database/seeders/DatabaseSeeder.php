@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder {
             CitySeeder::class,
             GroupSeeder::class,
             UserSeeder::class,
+            AdminSeeder::class,
         ] );
 
     }
