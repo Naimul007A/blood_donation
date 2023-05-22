@@ -53,4 +53,8 @@ Route::prefix( "admin" )->name( "admin." )->group( function () {
         Route::get( "/dashboard", "dashboard" )->name( "dashboard" );
         Route::get( "/logout", "logout" )->name( "logout" );
     } );
+    Route::middleware( "isadmin" )
+        ->group( function () {
+            Route::resource( "donors", App\Http\Controllers\Backend\DonorController::class );
+        } );
 } );

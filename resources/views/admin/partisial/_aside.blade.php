@@ -4,17 +4,18 @@
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Core</div>
                 <a class="nav-link {{ Request::is('admin/dashboard') ? 'active' : '' }}"
-                    href="{{ route('admin.dashboard') }}">
+                    href="{{ route('admin.dashboard') }}/">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
-                <div class="sb-sidenav-menu-heading">UK INFO</div>
+
                 <nav class="nav">
-                    <a class="nav-link {{ Request::is('admin/uk') ? 'active' : '' }}" href="">
+                    <a class="nav-link {{ Request::is('admin/donors') ? 'active' : '' }}"
+                        href="{{ route('admin.donors.index') }}/">
                         <div class="sb-nav-link-icon">
                             <i class="fa-solid fa-flag"></i>
                         </div>
-                        UK Counties
+                        Donors List
                     </a>
                     <a class="nav-link {{ Request::is('admin/uk/schools') ? 'active' : '' }}" href="">
                         <div class="sb-nav-link-icon">

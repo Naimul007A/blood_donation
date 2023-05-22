@@ -11,14 +11,15 @@
 }
 .btn1 {
     background: var(--main_color);
-    color: #fff !important;
+    color: #fff;
     font-weight: 600;
     margin: 0 5px;
     border: 2px solid transparent;
 }
-.btn1:hover {
+.btn1:hover,
+.btn .show {
     background: #fff;
-    color: var(--main_color) !important;
+    color: var(--main_color);
     border: 2px solid var(--main_color);
     transition: all 0.5s;
 }

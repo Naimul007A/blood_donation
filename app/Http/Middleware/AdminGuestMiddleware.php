@@ -14,15 +14,11 @@ class AdminGuestMiddleware {
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle( Request $request, Closure $next ): Response {
-        if ( Auth::user() ) {
-            return $next( $request );
+        if ( Auth::check() ) {
             return redirect()->route( "admin.dashboard" );
-
-        } else {
             return $next( $request );
-            return redirect()->route( "admin.login" );
-
         }
+        return $next( $request );
 
     }
 }

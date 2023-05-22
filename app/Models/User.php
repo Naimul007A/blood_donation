@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable {
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -36,10 +37,12 @@ class User extends Authenticatable {
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function City() {
+    public function City(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo( City::class );
     }
-    public function Group() {
+    public function Group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo( Group::class );
     }
 }

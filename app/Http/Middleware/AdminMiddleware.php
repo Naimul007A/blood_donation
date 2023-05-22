@@ -14,7 +14,7 @@ class AdminMiddleware {
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle( Request $request, Closure $next ): Response {
-        if ( Auth::user() ) {
+        if ( Auth::check() ) {
             if ( Auth::user()->role == 1 ) {
                 return $next( $request );
                 return redirect()->route( "admin.dashboard" );

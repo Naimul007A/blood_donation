@@ -2,9 +2,7 @@ a {
     text-decoration: none;
     color: var(--main_color);
 }
-.hello {
-    color: aliceblue;
-}
+
 .site-title {
     color: #800000;
     font-weight: 700;
