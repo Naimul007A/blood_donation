@@ -1,13 +1,13 @@
 @extends('admin.layouts.master')
 @section('title')
-    <title>Donor List : admin panel</title>
+    <title>Cities List : admin panel</title>
 @endsection
 @section('main')
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Donors List</h1>
+        <h1 class="mt-4">Cities List</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item active">Donors List</li>
+            <li class="breadcrumb-item active">Cities List</li>
         </ol>
         <div>
             <div class="row">
@@ -15,8 +15,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-between">
-                                <h5 class="card-title">Donor List</h5>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-sm">Add Donor</a>
+                                <h5 class="card-title">Cities List</h5>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-sm">Add City</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -24,31 +24,18 @@
                                 <thead>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Photo</th>
                                         <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>City</th>
-                                        <th>Group</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody >
-                                    @if(count($donors)>0)
-
-                                        @foreach($donors as $donor)
+                                <tbody>
+                                    @if (count($Cities) > 0)
+                                        @foreach ($Cities as $Citie)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td style="width:45%">
-                                                    <img src="/uploads/{{$donor->image}}" class="img-fluid" alt="PROFILE Photo">
-                                                </td>
-                                                <td>{{$donor->name}}</td>
-                                                <td>{{$donor->email}}</td>
-                                                <td>{{$donor->phone}}</td>
-                                                <td>{{$donor->City->name}}</td>
-                                                <td>{{$donor->Group->name}}</td>
+                                                <td>{{ $Citie->name }}</td>
                                                 <td>
-                                                    <a href="{{route('profile.donor',$donor->id)}}">View</a>
+                                                    <a href="{{ route('profile.donor', $Citie->id) }}">View</a>
                                                 </td>
                                             </tr>
                                         @endforeach

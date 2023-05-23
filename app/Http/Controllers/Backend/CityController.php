@@ -3,17 +3,16 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\City;
 use Illuminate\Http\Request;
 
-class DonorController extends Controller {
+class CityController extends Controller {
     /**
      * Display a listing of the resource.
      */
     public function index() {
-        $donors = User::with( 'City', 'Group' )
-            ->where( 'role', 2 )->get();
-        return view( "admin.donor", compact( 'donors' ) );
+        $Cities = City::get();
+        return view( "admin.city", compact( 'Cities' ) );
     }
 
     /**
@@ -23,11 +22,11 @@ class DonorController extends Controller {
         //
     }
 
-    /**'
+    /**
      * Store a newly created resource in storage.
      */
     public function store( Request $request ) {
-
+        //
     }
 
     /**
@@ -55,12 +54,6 @@ class DonorController extends Controller {
      * Remove the specified resource from storage.
      */
     public function destroy( string $id ) {
-        User::destroy( $id );
-        return true;
-    }
-    public function uesrslist() {
-        $users = User::with( 'City', 'Group' )
-            ->where( 'role', 0 )->get();
-        return view( "admin.user", compact( 'users' ) );
+        //
     }
 }

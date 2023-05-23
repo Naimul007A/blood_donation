@@ -3,17 +3,16 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Group;
 use Illuminate\Http\Request;
 
-class DonorController extends Controller {
+class GroupController extends Controller {
     /**
      * Display a listing of the resource.
      */
     public function index() {
-        $donors = User::with( 'City', 'Group' )
-            ->where( 'role', 2 )->get();
-        return view( "admin.donor", compact( 'donors' ) );
+        $groups = Group::all();
+        return view( "admin.group", compact( 'groups' ) );
     }
 
     /**
@@ -23,11 +22,16 @@ class DonorController extends Controller {
         //
     }
 
-    /**'
+    /**
      * Store a newly created resource in storage.
      */
     public function store( Request $request ) {
-
+        $Creadinsial = [
+            'name' => $request->group_name,
+        ];
+        Group::create( $Creadinsial );
+        return true;
+        info( "hit" );
     }
 
     /**
@@ -41,26 +45,26 @@ class DonorController extends Controller {
      * Show the form for editing the specified resource.
      */
     public function edit( string $id ) {
-        //
+
+        $group = Group::where( 'id', $id )->first();
+        return $group;
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update( Request $request, string $id ) {
-        //
+        $group       = Group::findOrFail( $id );
+        $group->name = $request->up_group_name;
+        $group->update();
+        return true;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( string $id ) {
-        User::destroy( $id );
+    public function destroy( string $id ): bool{
+        Group::destroy( $id );
         return true;
-    }
-    public function uesrslist() {
-        $users = User::with( 'City', 'Group' )
-            ->where( 'role', 0 )->get();
-        return view( "admin.user", compact( 'users' ) );
     }
 }

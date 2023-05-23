@@ -46,7 +46,7 @@ Route::prefix( "admin" )->name( "admin." )->group( function () {
     Route::middleware( 'admin_guest' )
         ->controller( App\Http\Controllers\Backend\HomeController::class )->group( function () {
         Route::get( "/", 'login' )->name( 'login' );
-        Route::post( "/", 'loginProccess' )->name( "loginProccess" );
+        Route::post( "/", 'loginProcess' )->name( "loginProccess" );
     } );
     Route::middleware( "isadmin" )
         ->controller( App\Http\Controllers\Backend\HomeController::class )->group( function () {
@@ -56,5 +56,8 @@ Route::prefix( "admin" )->name( "admin." )->group( function () {
     Route::middleware( "isadmin" )
         ->group( function () {
             Route::resource( "donors", App\Http\Controllers\Backend\DonorController::class );
+            Route::get( "/users", [App\Http\Controllers\Backend\DonorController::class, "uesrslist"] )->name( "users.index" );
+            Route::resource( "group", App\Http\Controllers\Backend\GroupController::class );
+            Route::resource( "cities", App\Http\Controllers\Backend\CityController::class );
         } );
 } );

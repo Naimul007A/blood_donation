@@ -1,13 +1,13 @@
 @extends('admin.layouts.master')
 @section('title')
-    <title>Donor List : admin panel</title>
+    <title>Users List : admin panel</title>
 @endsection
 @section('main')
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Donors List</h1>
+        <h1 class="mt-4">Users List</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item active">Donors List</li>
+            <li class="breadcrumb-item active">Users List</li>
         </ol>
         <div>
             <div class="row">
@@ -15,8 +15,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-between">
-                                <h5 class="card-title">Donor List</h5>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-sm">Add Donor</a>
+                                <h5 class="card-title">Users List</h5>
                             </div>
                         </div>
                         <div class="card-body">
@@ -30,26 +29,22 @@
                                         <th>Phone</th>
                                         <th>City</th>
                                         <th>Group</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody >
-                                    @if(count($donors)>0)
-
-                                        @foreach($donors as $donor)
+                                <tbody>
+                                    @if (count($users) > 0)
+                                        @foreach ($users as $user)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td style="width:45%">
-                                                    <img src="/uploads/{{$donor->image}}" class="img-fluid" alt="PROFILE Photo">
+                                                    <img src="/uploads/{{ $user->image }}" class="img-fluid"
+                                                        alt="PROFILE Photo">
                                                 </td>
-                                                <td>{{$donor->name}}</td>
-                                                <td>{{$donor->email}}</td>
-                                                <td>{{$donor->phone}}</td>
-                                                <td>{{$donor->City->name}}</td>
-                                                <td>{{$donor->Group->name}}</td>
-                                                <td>
-                                                    <a href="{{route('profile.donor',$donor->id)}}">View</a>
-                                                </td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->phone }}</td>
+                                                <td>{{ $user->City->name }}</td>
+                                                <td>{{ $user->Group->name }}</td>
                                             </tr>
                                         @endforeach
                                     @endif

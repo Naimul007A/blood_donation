@@ -17,11 +17,26 @@
                         </div>
                         Donors List
                     </a>
-                    <a class="nav-link {{ Request::is('admin/uk/schools') ? 'active' : '' }}" href="">
+                    <a class="nav-link {{ Request::is('admin/group') ? 'active' : '' }}"
+                        href="{{ route('admin.group.index') }}/">
                         <div class="sb-nav-link-icon">
                             <i class="fa-solid fa-school"></i>
                         </div>
-                        Uk Schools
+                        Group List
+                    </a>
+                    <a class="nav-link {{ Request::is('admin/users') ? 'active' : '' }}"
+                        href="{{ route('admin.users.index') }}/">
+                        <div class="sb-nav-link-icon">
+                            <i class="fa-solid fa-school"></i>
+                        </div>
+                        Users List
+                    </a>
+                    <a class="nav-link {{ Request::is('admin/cities') ? 'active' : '' }}"
+                        href="{{ route('admin.cities.index') }}/">
+                        <div class="sb-nav-link-icon">
+                            <i class="fa-solid fa-school"></i>
+                        </div>
+                        City List
                     </a>
                 </nav>
 

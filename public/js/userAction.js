@@ -44,7 +44,7 @@ $(Document).ready(function () {
       messageShow("Password Field Required", "danger");
     } else {
       var data = $(this)[0];
-      var formdata = new FormData(data);
+      var format = new FormData(data);
       if (role == 0) {
         var url = "/user/login";
       } else {
@@ -53,7 +53,7 @@ $(Document).ready(function () {
       $.ajax({
         url: url,
         type: "POST",
-        data: formdata,
+        data: format,
         processData: false,
         contentType: false,
         success: function success(data) {
